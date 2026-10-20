@@ -29,6 +29,7 @@ Fieldline is a multi-tenant SaaS for field / job invoicing. Organizations use th
 
 ### Implementation notes
 
-- Code path: `src/lib/stripe.ts` (`transfer_data.destination` + `application_fee_amount`).
+- Code path: `server/stripe.js` (`transfer_data.destination` + `application_fee_amount`).
+- Step-by-step record: `stripe-integration.md`.
 - Webhooks: `POST /api/webhooks/stripe` handles `checkout.session.completed`, `checkout.session.async_payment_succeeded`, `account.updated`.
-- Stub mode runs without `STRIPE_SECRET_KEY` for local demos.
+- Stub mode runs without `STRIPE_SECRET_KEY`.

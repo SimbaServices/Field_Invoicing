@@ -36,8 +36,7 @@ yarn-error.log*
 
 # local blob storage & sqlite
 /storage
-/prisma/dev.db
-/prisma/dev.db-journal
+/data
 *.db
 *.db-journal
 

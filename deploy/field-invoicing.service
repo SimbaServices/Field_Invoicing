@@ -1,0 +1,32 @@
+[Unit]
+Description=Field invoicing (invoice.simba.services)
+After=network-online.target
+Wants=network-online.target
+
+[Service]
+Type=simple
+User=invoice
+Group=invoice
+WorkingDirectory=/opt/field-invoicing
+EnvironmentFile=/etc/field-invoicing/env
+Environment=NODE_ENV=production
+Environment=HOSTNAME=127.0.0.1
+Environment=PORT=8791
+Environment=FIELD_DB_PATH=/var/lib/field-invoicing/field.db
+Environment=BLOB_STORAGE_ROOT=/var/lib/field-invoicing/blobs
+ExecStart=/opt/node/bin/node --experimental-sqlite server/index.js
+Restart=on-failure
+RestartSec=5
+TimeoutStartSec=30
+Nice=10
+CPUQuota=40%
+MemoryHigh=280M
+MemoryMax=360M
+NoNewPrivileges=true
+PrivateTmp=true
+ProtectSystem=strict
+ReadWritePaths=/var/lib/field-invoicing
+SyslogIdentifier=field-invoicing
+
+[Install]
+WantedBy=multi-user.target

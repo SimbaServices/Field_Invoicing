@@ -22,35 +22,18 @@ Multi-tenant field invoicing platform for organizations that need assisted payme
 - **Charge pattern:** destination charges (platform hosts payment links; org receives funds)
 - **Dashboard:** Express
 - **Fees / losses collector:** application (platform)
-- Works without Stripe keys in **stub mode** for local demos
+- Works without Stripe keys in **stub mode**
+- Setup record: [stripe-integration.md](stripe-integration.md)
 
 ## Quick start
 
 ```bash
 npm install
-npx prisma migrate dev --name init
-npm run db:seed
-npm run dev
+npm start
 ```
 
-Open [http://localhost:3000](http://localhost:3000). Seeded tenant: **Northline Field Services** with Harbor Municipal Works, a signed receivable, job + sub-PO, and an uploaded invoice scan.
-
-Copy `.env.example` → `.env` and add `STRIPE_SECRET_KEY` / `STRIPE_WEBHOOK_SECRET` when ready for live Connect checkout. Webhook endpoint: `POST /api/webhooks/stripe`.
-
-## Key API routes
-
-- `POST /api/organizations` — create tenant
-- `POST /api/customers` — customer + terms + optional term sheet
-- `POST /api/quotes` · `POST /api/quotes/:id/send`
-- `POST /api/purchase-orders` — `{ kind: "job" | "sub" }`
-- `GET/PATCH /api/purchase-orders/:id` — cash flow / close
-- `POST /api/invoices` — JSON generate or multipart upload
-- `POST /api/invoices/:id/sign` · `send-sign-link` · `pay`
-- `POST /api/access/:token/sign` · `pay` — limited-access flows
-- `POST /api/organizations/:id/connect` — Stripe Connect onboarding
-- `POST /api/organizations/:id/integrations` — QuickBooks etc.
-- `POST /api/webhooks/stripe`
+Open [http://127.0.0.1:8791](http://127.0.0.1:8791). Copy `.env.example` → `.env` and add `STRIPE_SECRET_KEY` / `STRIPE_WEBHOOK_SECRET` when ready for live Connect checkout. Without those keys, Connect and checkout run in stub mode. Webhook endpoint: `POST /api/webhooks/stripe`.
 
 ## Stack
 
-Next.js App Router · Prisma · SQLite (swap `DATABASE_URL` for Postgres in production) · local blob adapter (S3-shaped keys) · Stripe · Zod
+Node HTTP server · HTMX · vanilla JS · SQLite for records · filesystem for invoice scans · Stripe for destination charges and Connect onboarding. The only package dependency is Stripe.

@@ -1,0 +1,32 @@
+schema: 1
+repo: Field_Invoicing
+name: Field Invoicing
+id: invoice
+live: true
+order: 40
+host: shared
+public:
+  - name: invoice.simba.services
+    url: https://invoice.simba.services/
+    edge: Caddy :443 → 127.0.0.1:8791
+    health: https://invoice.simba.services/
+process:
+  name: field-invoicing.service
+  bind: 127.0.0.1:8791
+  listen_public: false
+store: SQLite /var/lib/field-invoicing/field.db
+blobs: filesystem /var/lib/field-invoicing/blobs
+edge_steps:
+  - title: Caddy :80 :443
+    detail: invoice.simba.services
+  - title: field-invoicing
+    detail: 127.0.0.1:8791
+  - title: SQLite
+    detail: field.db
+outbound:
+  - to: api.stripe.com
+    what: Connect destination charges when STRIPE_SECRET_KEY is set. Stub mode without it.
+notes: >
+  Desk at https://invoice.simba.services/. Node binds 127.0.0.1:8791 only.
+  Caddy is the public edge. Do not expose 8791. Do not use 8765, 8787, or 8090.
+  Invoice scans stay on the filesystem, not in CRM PostgreSQL.

@@ -1,0 +1,214 @@
+@import "tailwindcss";
+
+:root {
+  --ink: #142033;
+  --ink-soft: #3a4a63;
+  --paper: #eef2f6;
+  --panel: #ffffff;
+  --steel: #1c3d5a;
+  --tide: #0f6e6a;
+  --tide-deep: #0a4f4c;
+  --sand: #c4a574;
+  --danger: #b42318;
+  --ok: #1b7a4a;
+  --warn: #b54708;
+  --line: rgba(20, 32, 51, 0.12);
+  --shadow: 0 18px 50px rgba(20, 32, 51, 0.12);
+  --radius: 14px;
+  --font-display: var(--font-display);
+  --font-body: var(--font-body);
+}
+
+@theme inline {
+  --color-ink: var(--ink);
+  --color-ink-soft: var(--ink-soft);
+  --color-paper: var(--paper);
+  --color-panel: var(--panel);
+  --color-steel: var(--steel);
+  --color-tide: var(--tide);
+  --color-tide-deep: var(--tide-deep);
+  --color-sand: var(--sand);
+  --color-danger: var(--danger);
+  --color-ok: var(--ok);
+  --color-warn: var(--warn);
+  --font-sans: var(--font-body);
+  --font-display: var(--font-display);
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html,
+body {
+  min-height: 100%;
+}
+
+body {
+  margin: 0;
+  color: var(--ink);
+  background:
+    radial-gradient(1200px 600px at 10% -10%, rgba(15, 110, 106, 0.18), transparent 55%),
+    radial-gradient(900px 500px at 100% 0%, rgba(28, 61, 90, 0.16), transparent 50%),
+    linear-gradient(180deg, #e8eef5 0%, var(--paper) 40%, #e6ebe8 100%);
+  font-family: var(--font-body), system-ui, sans-serif;
+}
+
+a {
+  color: inherit;
+  text-decoration: none;
+}
+
+.display {
+  font-family: var(--font-display), Georgia, serif;
+  letter-spacing: -0.02em;
+}
+
+.panel {
+  background: color-mix(in srgb, var(--panel) 92%, transparent);
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+  backdrop-filter: blur(10px);
+  box-shadow: var(--shadow);
+}
+
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  border: none;
+  border-radius: 10px;
+  padding: 0.7rem 1.1rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: transform 160ms ease, background 160ms ease, opacity 160ms ease;
+}
+
+.btn:hover {
+  transform: translateY(-1px);
+}
+
+.btn:disabled {
+  opacity: 0.55;
+  cursor: not-allowed;
+  transform: none;
+}
+
+.btn-primary {
+  background: var(--tide);
+  color: white;
+}
+
+.btn-primary:hover {
+  background: var(--tide-deep);
+}
+
+.btn-secondary {
+  background: var(--steel);
+  color: white;
+}
+
+.btn-ghost {
+  background: transparent;
+  border: 1px solid var(--line);
+  color: var(--ink);
+}
+
+.field {
+  display: flex;
+  flex-direction: column;
+  gap: 0.35rem;
+}
+
+.field label {
+  font-size: 0.8rem;
+  font-weight: 600;
+  color: var(--ink-soft);
+}
+
+.field input,
+.field select,
+.field textarea {
+  border: 1px solid var(--line);
+  border-radius: 10px;
+  padding: 0.7rem 0.85rem;
+  font: inherit;
+  background: white;
+  color: var(--ink);
+}
+
+.badge {
+  display: inline-flex;
+  align-items: center;
+  padding: 0.2rem 0.55rem;
+  border-radius: 999px;
+  font-size: 0.72rem;
+  font-weight: 700;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+}
+
+.badge-pending {
+  background: #fff4e5;
+  color: var(--warn);
+}
+
+.badge-signed {
+  background: #e7f3ff;
+  color: var(--steel);
+}
+
+.badge-paid {
+  background: #e8f7ef;
+  color: var(--ok);
+}
+
+.badge-open {
+  background: #eef7f6;
+  color: var(--tide);
+}
+
+.fade-up {
+  animation: fadeUp 560ms cubic-bezier(0.22, 1, 0.36, 1) both;
+}
+
+.fade-up-delay {
+  animation: fadeUp 700ms cubic-bezier(0.22, 1, 0.36, 1) 120ms both;
+}
+
+.pulse-soft {
+  animation: pulseSoft 2.8s ease-in-out infinite;
+}
+
+@keyframes fadeUp {
+  from {
+    opacity: 0;
+    transform: translateY(14px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes pulseSoft {
+  0%,
+  100% {
+    box-shadow: 0 0 0 0 rgba(15, 110, 106, 0.25);
+  }
+  50% {
+    box-shadow: 0 0 0 10px rgba(15, 110, 106, 0);
+  }
+}
+
+.countdown {
+  font-variant-numeric: tabular-nums;
+}
+
+.hero-grid {
+  background-image:
+    linear-gradient(rgba(20, 32, 51, 0.04) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(20, 32, 51, 0.04) 1px, transparent 1px);
+  background-size: 28px 28px;
+}

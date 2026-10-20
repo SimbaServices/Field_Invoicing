@@ -433,7 +433,7 @@ function InvoiceForms({
   );
 }
 
-export const CustomerWorkbench = {
+export {
   InvoiceActions,
   TermSheetButton,
   QuoteForm,

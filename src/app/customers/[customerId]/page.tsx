@@ -6,7 +6,14 @@ import { StatusBadge } from "@/components/StatusBadge";
 import { Money } from "@/components/Money";
 import { receivableCountdown } from "@/lib/receivables";
 import { poCashFlow } from "@/lib/purchase-orders";
-import { CustomerWorkbench } from "@/components/CustomerWorkbench";
+import {
+  InvoiceActions,
+  TermSheetButton,
+  QuoteForm,
+  JobPoForm,
+  SubPoForm,
+  InvoiceForms,
+} from "@/components/CustomerWorkbench";
 
 export const dynamic = "force-dynamic";
 
@@ -98,7 +105,7 @@ export default async function CustomerPage({
                         </p>
                       ) : null}
                     </div>
-                    <CustomerWorkbench.InvoiceActions
+                    <InvoiceActions
                       invoiceId={inv.id}
                       status={inv.status}
                     />
@@ -134,7 +141,7 @@ export default async function CustomerPage({
                 </p>
               </article>
             ))}
-            <CustomerWorkbench.TermSheetButton customerId={customer.id} />
+            <TermSheetButton customerId={customer.id} />
           </section>
         </aside>
       </div>
@@ -158,7 +165,7 @@ export default async function CustomerPage({
               </li>
             ))}
           </ul>
-          <CustomerWorkbench.QuoteForm customerId={customer.id} />
+          <QuoteForm customerId={customer.id} />
         </section>
 
         <section className="panel p-5">
@@ -190,16 +197,16 @@ export default async function CustomerPage({
                   ))}
                 </ul>
               ) : null}
-              <CustomerWorkbench.SubPoForm parentPoId={flow.purchaseOrder.id} />
+              <SubPoForm parentPoId={flow.purchaseOrder.id} />
             </div>
           ))}
-          <CustomerWorkbench.JobPoForm customerId={customer.id} />
+          <JobPoForm customerId={customer.id} />
         </section>
       </div>
 
       <section className="panel p-5">
         <h2 className="display mb-4 text-2xl font-semibold">Create / upload invoice</h2>
-        <CustomerWorkbench.InvoiceForms
+        <InvoiceForms
           customerId={customer.id}
           purchaseOrders={[
             ...customer.purchaseOrders,
